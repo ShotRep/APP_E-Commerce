@@ -1,0 +1,24 @@
+{
+  "name": "APP_E-Commerce",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">App - E-Commerce</h1>",
+  "main": "script.js",
+  "scripts": {
+    "dev": "nodemon script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShotRep/APP_E-Commerce.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShotRep/APP_E-Commerce/issues"
+  },
+  "homepage": "https://github.com/ShotRep/APP_E-Commerce#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12"
+  }
+}

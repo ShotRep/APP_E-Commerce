@@ -22,7 +22,6 @@ app.get("/", (req, res) => {
 
 //middleware
 
-
 // //parsing logic via middleware function we created - has some holes in it
 // const bodyParser = (req, res, next) => {
 //   if (req.method === 'POST') {
