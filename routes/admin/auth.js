@@ -1,8 +1,14 @@
 //////R O U T E  H A N D L E R S\\\\\\\\\
 const express = require("express")
-const userRepo = require("../../repositories/users")
-const signupTemplate = require('../../views/admin/auth/signup')
+const {check, validationResult} = require("express-validator") //{} destructuring from the library
+// const {validationResult} = require("express-validator") //{} destructuring from the library
+
+const usersRepo = require("../../repositories/users")
+const signupTemplate = require("../../views/admin/auth/signup")
 const signinTemplate = require("../../views/admin/auth/signin")
+const {requireEmail} = require("./validators")
+const {requirePassword} = require("./validators")
+const {requirePasswordConfirmation} = require("./validators")
 
 //////////S u b  R o u t e r\\\\\\\\\
 const router = express.Router()
@@ -13,27 +19,23 @@ router.get("/signup", (req, res) => {
 })
 
 //POST request handler
-router.post("/signup", async (req, res) => {
-  // console.log(req.body)
-  const {email, password, passwordConfirmation} = req.body
+router.post(
+  "/signup",
+  [requireEmail, requirePassword, requirePasswordConfirmation],
+  //req handler
+  async (req, res) => {
+    const errors = validationResult(req)
+    console.log(errors)
+    // console.log(req.body)
+    const {email, password, passwordConfirmation} = req.body
+    // Create a user in our user repo to represent this person
+    const user = await usersRepo.create({email, password})
+    // Store the id of that user inside the users cookie
+    req.session.userId = user.id
 
-  const existingUser = await usersRepo.getOneBy({email})
-  if (existingUser) {
-    return res.send("Email in use")
+    res.send("Account created!!!")
   }
-
-  if (password !== passwordConfirmation) {
-    return res.send("Passwords must match")
-  }
-
-  // Create a user in our user repo to represent this person
-  const user = await usersRepo.create({email, password})
-
-  // Store the id of that user inside the users cookie
-  req.session.userId = user.id
-
-  res.send("Account created!!!")
-})
+)
 
 //Sign out request handler
 router.get("/signout", (req, res) => {
