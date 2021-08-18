@@ -4,7 +4,7 @@ const {getError} = require("../../helpers")
 module.exports = ({errors}) => {
   return layout({
     content: `
-          <form method = "POST" enctype='multipart/form-data'>
+      <form method="POST" enctype="multipart/form-data">
         <input placeholder="Title" name="title" />
         ${getError(errors, "title")}
         <input placeholder="Price" name="price" />
@@ -18,7 +18,7 @@ module.exports = ({errors}) => {
 
 // form alone has a default method provided by the browser of GET, we must specify POST.
 // Method: is how to transmit information GET=URL or POST=Body
-  
+
 // GET: the browser takes all the information out of the form adds it into the url of a request and then make a request to the backend server with that URL.
 
 // POST: the browser takes all the information out of the form and puts it into the body of a POST request then makes a request to the backend server.

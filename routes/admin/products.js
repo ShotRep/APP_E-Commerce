@@ -4,7 +4,7 @@ const {validationResult} = require("express-validator")
 const multer = require("multer")
 //Internal
 const productsRepo = require("../../repositories/products")
-const productsNewTemplate = require("../../views/admin/products/new")
+const productsNewTemplate = require("../../views/admin/products/new.js.old")
 const {requireTitle, requirePrice} = require("./validators")
 
 //Variables for above
