@@ -1,5 +1,5 @@
-const fs = require('fs')
-const crypto = require('crypto')
+const fs = require("fs")
+const crypto = require("crypto")
 
 module.exports = class Repository {
   constructor(filename) {
@@ -19,21 +19,20 @@ module.exports = class Repository {
     attrs.id = this.randomId()
 
     const records = await this.getAll()
-    records.push(attr)
+    records.push(attrs)
     await this.writeAll(records)
 
     return attrs
   }
 
   async getAll() {
-    // open file called this.filename
     return JSON.parse(
       await fs.promises.readFile(this.filename, {
         encoding: "utf8",
       })
     )
   }
-  
+
   async writeAll(records) {
     await fs.promises.writeFile(this.filename, JSON.stringify(records, null, 2))
   }

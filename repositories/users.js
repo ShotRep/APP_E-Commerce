@@ -1,19 +1,14 @@
-const fs = require('fs');
-const crypto = require('crypto');
-const util = require('util');
-const Repository = require('./repository')
+const fs = require("fs")
+const crypto = require("crypto")
+const util = require("util")
+const Repository = require("./repository")
 
-const scrypt = util.promisify(crypto.scrypt);
+const scrypt = util.promisify(crypto.scrypt)
 
 class UsersRepository extends Repository {
   async comparePasswords(saved, supplied) {
     // Saved -> password saved in our database. 'hashed.salt'
     // Supplied -> password given to us by a user trying sign in
-
-    // const result = saved.split('.')
-    // const hashed = result[0]
-    // const salt = result[1]
-    //or\\
     const [hashed, salt] = saved.split(".")
     const hashedSuppliedBuf = await scrypt(supplied, salt, 64)
 
@@ -21,10 +16,8 @@ class UsersRepository extends Repository {
   }
 
   async create(attrs) {
-    //assumed email and password property attrs === {email:'',password:''}
     attrs.id = this.randomId()
 
-    //generate a SALT
     const salt = crypto.randomBytes(8).toString("hex")
     const buf = await scrypt(attrs.password, salt, 64)
 
@@ -41,4 +34,4 @@ class UsersRepository extends Repository {
   }
 }
 
-module.exports = new UsersRepository('users.json');
+module.exports = new UsersRepository("users.json")
