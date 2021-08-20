@@ -1,7 +1,7 @@
 const express = require("express")
 const cartsRepo = require("../repositories/carts")
-const productsRepo = require('../repositories/products')
-const cartShowTemplate = require('../views/carts/show')
+const productsRepo = require("../repositories/products")
+const cartShowTemplate = require("../views/carts/show")
 
 const router = express.Router()
 
@@ -24,16 +24,16 @@ router.post("/cart/products", async (req, res) => {
     cart.items.push({id: req.body.productId, quantity: 1})
   }
   await cartsRepo.update(cart.id, {
-    items: cart.items
+    items: cart.items,
   })
   // res.send("Product added to cart")
-  res.redirect('/cart')
+  res.redirect("/cart")
 })
 
 //route   receive GET request to show all items in cart
-router.get('/cart', async(req, res) => {
+router.get("/cart", async (req, res) => {
   if (!req.session.cartId) {
-  return res.redirect('/')
+    return res.redirect("/")
   }
   const cart = await cartsRepo.getOne(req.session.cartId)
 
@@ -44,16 +44,16 @@ router.get('/cart', async(req, res) => {
   res.send(cartShowTemplate({items: cart.items}))
 })
 //route   receive POST request to delete an item from cart
-router.post('/cart/products/delete', async (req,res) => {
+router.post("/cart/products/delete", async (req, res) => {
   // console.log(req.body.itemId)
-  const { itemId } = req.body
+  const {itemId} = req.body
   const cart = await cartsRepo.getOne(req.session.cartId)
 
-  const items = cart.items.filter(item => item.id !== itemId)
+  const items = cart.items.filter((item) => item.id !== itemId)
 
-  await cartsRepo.update(req.session.cartId, { items: items })
-  
-  res.redirect('/cart')
+  await cartsRepo.update(req.session.cartId, {items: items})
+
+  res.redirect("/cart")
 })
 
 module.exports = router

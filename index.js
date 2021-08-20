@@ -1,21 +1,21 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cookieSession = require('cookie-session');
-const authRouter = require('./routes/admin/auth')
-const adminProductsRouter = require('./routes/admin/products')
-const productsRouter = require('./routes/products')
-const cartsRouter = require('./routes/carts')
+const express = require("express")
+const bodyParser = require("body-parser")
+const cookieSession = require("cookie-session")
+const authRouter = require("./routes/admin/auth")
+const adminProductsRouter = require("./routes/admin/products")
+const productsRouter = require("./routes/products")
+const cartsRouter = require("./routes/carts")
 
-const app = express();
+const app = express()
 
 //middleware library set to global
-app.use(express.static('public'))
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"))
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(
   cookieSession({
-    keys: ['lkasld235j']
+    keys: ["lkasld235j"],
   })
-);
+)
 
 //associate with app
 app.use(authRouter)
@@ -50,5 +50,5 @@ app.use(cartsRouter)
 
 //listen for incoming traffic
 app.listen(3000, () => {
-  console.log('Listening');
-});
+  console.log("Listening")
+})
