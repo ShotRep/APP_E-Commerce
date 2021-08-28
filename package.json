@@ -4,6 +4,7 @@
   "description": "<h1 align=\"center\">App - E-Commerce</h1>",
   "main": "script.js",
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon script.js"
   },
   "repository": {
